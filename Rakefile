@@ -8,4 +8,5 @@ Motion::Project::App.setup do |app|
   app.main_activity = 'MainActivity'
   app.sub_activities += %w(ReviewActivity)
   app.permissions = [:internet]
+  app.vendor_project jar: "vendor/volley-1.0.10.jar"
 end
