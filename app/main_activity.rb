@@ -65,9 +65,22 @@ class MainActivity < Android::App::Activity
   end
 
   def onClick(parent)
-    intent = Android::Content::Intent.new(self, ReviewActivity)
-    intent.putExtra('email', @input_name.text.toString)
-    intent.putExtra('password', @input_password.text.toString)
-    startActivity(intent)
+    url = "http://revenger.dev/api/sessions"
+    listener = RequestListener.new(self)
+    error_listener = ErrorListener.new(self)
+    puts 'post'
+    params = { email: 'hoge', password: 'fuga' }
+    post = Com::Android::Volley::Toolbox::JsonObjectRequest.new(1, url, nil, listener, nil)
+    request_queue = Com::Android::Volley::Toolbox::Volley.newRequestQueue(self)
+    request_queue.add(post)
+    puts 'add'
+    # intent = Android::Content::Intent.new(self, ReviewActivity)
+    # intent.putExtra('email', @input_name.text.toString)
+    # intent.putExtra('password', @input_password.text.toString)
+    # startActivity(intent)
+  end
+
+  def callback_json(json)
+    puts json
   end
 end
